@@ -15,6 +15,10 @@ body{
 	box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
 	border-radius: 10px;
 	border: 6px solid #305A72;
+	text-align: center;
+}
+p{
+	text-align: center;
 }
 input {
 	margin-bottom: 10px;
@@ -24,7 +28,10 @@ input[type="delete"]{
 	display: block;
 	
 }
-#function{
+input[type="text"]{
+	text-align: center;
+}
+#myFunction(){
 	margin: 0 auto;
 	display: block;
 }
