@@ -44,7 +44,9 @@ input[type="submit"]{
 	<label for="quantity">Quantity of Item:</label><br>
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
 	<input type="submit" value="Submit">
-  <button type="button" onclick="document.location='Items.php'">Items</button>
+  <button type="button" onclick="document.location='Items.php'">Items List</button>
+  <button type="button" onclick="document.location='Delete.html'">Delete Items</button>
+  <button type="button" onclick="document.location='edit.html'">Edit Items</button>
 	
 </body>
 </html>

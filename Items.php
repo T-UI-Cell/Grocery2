@@ -32,7 +32,7 @@ $dbname = "items_database";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT iname, cost, company, department, quantity FROM products");
+    $stmt = $conn->prepare("SELECT iname, cost, company, department, quantity FROM products Limit 0, 5  ");
     $stmt->execute();
 
     // set the resulting array to associative
@@ -48,6 +48,12 @@ catch(PDOException $e) {
 $conn = null;
 echo "</table>";
 ?>
+
+<input type="button" value="Next" class="nextbutton" id="btnNext" 
+onClick="document.location.href='items2.php'" />
+
+<input type="button" value="Add New Item" class="Menubutton" id="btnMenu" 
+onClick="document.location.href='interface.php'" />
 
 </body>
 </html>
