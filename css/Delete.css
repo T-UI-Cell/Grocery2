@@ -1,0 +1,53 @@
+h2{
+	text-align: center;
+}
+h1{
+	text-align: center;
+}
+.navbar{
+	text-align: center;
+}
+body{
+	max-width: 550px;
+	background: #FAFAFA;
+	padding: 30px;
+	margin: 50px auto;
+	box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+	border-radius: 10px;
+	border: 6px solid #305A72;
+	text-align: center;
+}
+p{
+	text-align: center;
+}
+input {
+	margin-bottom: 10px;
+}
+input[type="delete"]{
+	margin: 0 auto;
+	display: block;
+	
+}
+input[type="text"]{
+	text-align: center;
+}
+#myFunction(){
+	margin: 0 auto;
+	display: block;
+}
+
+input.right{
+	float: right;
+	border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  border-color: black;
+  font-size: 16px;
+  margin: 0px 2px;
+  cursor: pointer;
+  background-color: red;
+}
+
+
