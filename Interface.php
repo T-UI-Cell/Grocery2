@@ -35,12 +35,14 @@ input[type="submit"]{
 	<label for="company">Distributor:</label><br>
 	<input type="text" id="company" name="company" value=""><br>
 	<label for="department">Department:</label><br>
-	<input type="radio" id="produce" name="department" value="produce">
-	<label for="produce">Produce</label><br>
-	<input type="radio" id="freezer" name="department" value="freezer">
-	<label for="freezer">Freezer</label><br>
-	<input type="radio" id="meat" name="department" value="meat">
-	<label for="meat">Meat</label><br>
+	<select name="department" id="department">
+		<option value="Meat">Meat</option>
+		<option value="Cereal">Cereal</option>
+		<option value="Cheese">Cheese</option>
+		<option value="Produce">Produce</option>
+		<option value="Drinks">Drinks</option>
+		<option value="Grocery">Grocery</option>
+	</select>
 	<label for="quantity">Quantity of Item:</label><br>
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
 	<input type="submit" value="Submit">
