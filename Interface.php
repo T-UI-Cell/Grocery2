@@ -42,7 +42,7 @@ input[type="submit"]{
 		<option value="Produce">Produce</option>
 		<option value="Drinks">Drinks</option>
 		<option value="Grocery">Grocery</option>
-	</select>
+	</select><br>
 	<label for="quantity">Quantity of Item:</label><br>
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
 	<input type="submit" value="Submit">
