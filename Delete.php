@@ -22,7 +22,7 @@
 
 
 <p> <br>
-<br>* DataBase *</p>
+<br>* DataBase Insertion*</p>
 <?php
 echo "<table style='border: solid 1px black;'>";
  echo "<tr><th>Item Name</th><th>Cost</th><th>Company</th><th>Department</th><th>Quantity</th></tr>";
@@ -31,7 +31,7 @@ class TableRows extends RecursiveIteratorIterator {
     function __construct($it) {
         parent::__construct($it, self::LEAVES_ONLY);
     }
-
+ 
     function current() {
         return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
     }
@@ -53,7 +53,7 @@ $dbname = "items_database";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT iname, cost, company, department, quantity FROM products");
+    $stmt = $conn->prepare("SELECT iname, cost, company, department, quantity FROM products Limit 5, 10  ");
     $stmt->execute();
 
     // set the resulting array to associative
@@ -70,8 +70,6 @@ $conn = null;
 echo "</table>";
 ?>
 
-</body>
-</html>
 <br>
 <br>
 <!--this is where the data base will pull up with the attached string matching!-->
