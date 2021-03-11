@@ -1,59 +1,71 @@
-<!DOCTYPE html>
+
 <html>
+<head>
+    <title>Items</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    th{
+        width:200px;
+    }
+</style>
+</head>
 <body>
-
 <?php
-echo "<table style='border: solid 1px black;'>";
- echo "<tr><th>Item Name</th><th>Cost</th><th>Company</th><th>Department</th><th>Quantity</th></tr>";
 
-class TableRows extends RecursiveIteratorIterator {
-    function __construct($it) {
-        parent::__construct($it, self::LEAVES_ONLY);
+    if (isset($_GET['pageno'])) {
+        $pageno = $_GET['pageno'];
+    } else {
+        $pageno = 1;
+    }
+    $no_of_records_per_page = 10;
+    $offset = ($pageno-1) * $no_of_records_per_page;
+
+    $conn=mysqli_connect("localhost","root","","items_database");
+    // Check connection
+    if (mysqli_connect_errno()){
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        die();
     }
 
-    function current() {
-        return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
-    }
+    $total_pages_sql = "SELECT COUNT(*) FROM products";
+    $result = mysqli_query($conn,$total_pages_sql);
+    $total_rows = mysqli_fetch_array($result)[0];
+    $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-    function beginChildren() {
-        echo "<tr>";
-    }
-
-    function endChildren() {
-        echo "</tr>" . "\n";
-    }
-}
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "items_database";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT iname, cost, company, department, quantity FROM products Limit 0, 5  ");
-    $stmt->execute();
-
-    // set the resulting array to associative
-    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-        echo $v;
-    }
-}
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-$conn = null;
-echo "</table>";
+    $sql = "SELECT * FROM products LIMIT $offset, $no_of_records_per_page";
+    $res_data = mysqli_query($conn,$sql);
+    echo '<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Item Name</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Company</th>
+      <th scope="col">Department</th>
+      <th scope="col">Quantity</<th>
+    </tr>
+  </thead>
+  <tbody>';
+    while($row = mysqli_fetch_array($res_data)){
+       echo '<tr><th scope="row">'.$row["iname"].'</th><td>'.$row["cost"].'</td><td>'.$row["company"].'</td><td>'.$row["department"].'</td><td>'.$row["quantity"].'</td></tr>';
+  }
+  echo "</tbody></table>";
+    mysqli_close($conn);
 ?>
 
-<input type="button" value="Next" class="nextbutton" id="btnNext" 
-onClick="document.location.href='items2.php'" />
-
-<input type="button" value="Add New Item" class="Menubutton" id="btnMenu" 
-onClick="document.location.href='interface.php'" />
-
+    <ul class="pagination">
+        <li><a href="?pageno=1">First</a></li>
+        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+        </li>
+        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+        </li>
+        <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+    </ul>
+  </br>
+    <a href="Interface.php" class="btn btn-light">Home</a>
 </body>
 </html>
