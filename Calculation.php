@@ -15,22 +15,42 @@
 </div>
 
 
-
-<form name="myform" action="textentry2.php" method="POST">
-<h2> <u> Enter Item Cost</u></h2>
+<h1> Find Total Product Cost</h1>
+<form name="myform1" action="textentry2.php" method="POST">
+<h2> <u> Enter Product Cost</u></h2>
 <input type="text" name="itemCost" onkeyup="calc()">
-<h2> <u> Enter Item Qty</u></h2>
+<h2> <u> Enter Product Qty</u></h2>
 <input type="text" name="itemQty" onkeyup="calc()">
-<h2> <u> Item Total</u></h2>
-<input type="text" name="text3"    >
+<h2> <u>  Total Product Cost </u></h2>
+<input type="text" name="totalProd"    >
 </form>
 <script>
 function calc()
   {
-    var elm = document.forms["myform"];
+    var elm = document.forms["myform1"];
 
     if (elm["itemCost"].value != "" && elm["itemQty"].value != "")
-      {elm["text3"].value = (elm["itemCost"].value) * parseInt(elm["itemQty"].value);}
+      {elm["totalProd"].value = (elm["itemCost"].value) * parseInt(elm["itemQty"].value);}
+  }
+</script>
+
+
+<h1> Find Indivual Cost</h1>
+<form name="myform2" action="textentry2.php" method="POST">
+<h2> <u> Enter Product Total </u></h2>
+<input type="text" name="productTotal" onkeyup="calc()">
+<h2> <u> Enter Product Qty</u></h2>
+<input type="text" name="prodQty" onkeyup="calc()">
+<h2> <u>  Indivual Product Cost</u></h2>
+<input type="text" name="inCost"    >
+</form>
+<script>
+function calc()
+  {
+    var elm = document.forms["myform2"];
+
+    if (elm["productTotal"].value != "" && elm["prodQty"].value != "")
+      {elm["inCost"].value = (elm["productTotal"].value) / parseInt(elm["prodQty"].value);}
   }
 </script>
 
