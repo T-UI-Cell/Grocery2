@@ -1,4 +1,29 @@
-<?php error_reporting (E_ALL ^ E_NOTICE); ?>
+<?php 
+session_start();
+
+error_reporting (E_ALL ^ E_NOTICE);
+
+if (isset($_GET['index'])) {
+        $index = $_GET['index'];
+    }
+    else{
+      $index = -1;
+    }
+$idArray = $_SESSION["idArray"];
+
+// Create connection
+$conn = new mysqli('localhost','root','');
+ 
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+ 
+// this will select the Database 
+mysqli_select_db($conn,"items_database");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <title> Delete </title>
@@ -66,22 +91,15 @@ input.right{
   <a href="edit.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
 </div>
 <h2>Enter ID to delete Item</h2>
+
 <form action="" method= "post" >
-  <input type="text" placeholder="Delete" id="id" name="id">
+  <input type="text" <?php if($index == -1){ echo 'placeholder="Delete"';}else{echo 'value="'.$idArray[$index].'"';} ?> id="id" name="id">
   <input type="submit" value="Delete" name="btnDelete">
 </form>
   
 <?php
-// Create connection
-$conn = new mysqli('localhost','root','');
- 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
- 
-// this will select the Database 
-mysqli_select_db($conn,"items_database");
+
+
 
 //var for id here
 $varid=$_POST['id'];
@@ -89,6 +107,12 @@ $varid=$_POST['id'];
  if (isset($_POST['btnDelete'])) {
    
 // create INSERT query
+$sql="DELETE FROM domain WHERE id='$varid'";
+
+if ($conn->query($sql) === TRUE) {
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
 $sql="DELETE FROM products WHERE id='$varid'";
 
 if ($conn->query($sql) === TRUE) {
