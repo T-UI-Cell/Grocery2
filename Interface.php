@@ -27,7 +27,7 @@ input[type="submit"]{
 
 <h2>Inventory System</h2>
 
-<form action="Insert.php" method= "post"  >
+<form action="Insert2.php" method= "post"  >
 	<label for="iname">Item name:</label><br>
 	<input type="text" id="iname" name="iname" value=""><br>
 	<label for="cost">Cost:</label><br>
@@ -47,7 +47,7 @@ input[type="submit"]{
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
 	<input type="submit" value="Submit">
   <button type="button" onclick="document.location='Items.php'">Items List</button>
-  <button type="button" onclick="document.location='Delete.html'">Delete Items</button>
+  <button type="button" onclick="document.location='Delete2.php'">Delete Items</button>
   <button type="button" onclick="document.location='edit.html'">Edit Items</button>
 	
 </body>
