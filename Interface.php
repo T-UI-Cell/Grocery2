@@ -27,7 +27,7 @@ input[type="submit"]{
 
 <h2>Inventory System</h2>
 
-<form action="Insert2.php" method= "post"  >
+<form action="Insert.php" method= "post"  >
 	<label for="iname">Item name:</label><br>
 	<input type="text" id="iname" name="iname" value=""><br>
 	<label for="cost">Cost:</label><br>
