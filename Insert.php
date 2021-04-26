@@ -9,8 +9,8 @@ $conn = new mysqli('localhost','root','');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-echo "DB Connected successfully";
-echo '<br>';
+//echo "DB Connected successfully";
+//echo '<br>';
  
 // this will select the Database sample_db
 mysqli_select_db($conn,"items_database");
@@ -35,15 +35,17 @@ mysqli_select_db($conn,"items_database");
 	$sql="INSERT INTO products (id,cost,company,department,quantity) VALUES ('$idnum[0]','$_POST[cost]','$_POST[company]','$_POST[department]','$_POST[quantity]')";
  
 	if ($conn->query($sql) === TRUE) {
-    	echo "New record created successfully    ";
+    	$message = "New record created successfully";
+        echo "<script type='text/javascript'>alert('$message');</script>";
 	} else {
     	echo "Error: " . $sql . "<br>" . $conn->error;
 	}
  }
  else{
- 	echo "An item with this name already exists in the database";
+ 	$message = "An item with this name already exists in the database";
+        echo "<script type='text/javascript'>alert('$message');</script>";
  }
- echo '<br><br><a href="Interface.php" class="btn btn-light">Home</a>';
+ //echo '<br><br><a href="Interface.php" class="btn btn-light">Home</a>';
  
 mysqli_close($conn);
 ?>
