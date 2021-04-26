@@ -48,7 +48,7 @@ input[type="submit"]{
 	<input type="submit" value="Submit">
   <button type="button" onclick="document.location='Items.php'">Items List</button>
   <button type="button" onclick="document.location='Delete2.php'">Delete Items</button>
-  <button type="button" onclick="document.location='edit.html'">Edit Items</button>
+  <button type="button" onclick="document.location='Edit2.php'">Edit Items</button>
 	
 </body>
 </html>

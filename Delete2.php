@@ -3,6 +3,8 @@ session_start();
 
 error_reporting (E_ALL ^ E_NOTICE);
 
+//Get the item id from the previous page, if you came from another page.
+//Otherwise set index to -1
 if (isset($_GET['index'])) {
         $index = $_GET['index'];
     }
@@ -26,7 +28,13 @@ mysqli_select_db($conn,"items_database");
 
 <!DOCTYPE html>
 <html>
-<title> Delete </title>
+<head>
+    <title> Delete </title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <header>
 <style type="text/css">
 h2{
@@ -88,41 +96,62 @@ input.right{
 <div class="navbar">
   <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Home</a>
   <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
-  <a href="edit.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
+  <a href="Edit2.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
 </div>
 <h2>Enter ID to delete Item</h2>
+<?php
 
+//if coming from another page, get the name of the item you are looking to delete
+//from the table using the idArray.
+$sql="SELECT iname FROM domain WHERE id='$idArray[$index]'";
+
+$data = mysqli_query($conn,$sql);
+$name = mysqli_fetch_array($data)[0];
+?>
 <form action="" method= "post" >
-  <input type="text" <?php if($index == -1){ echo 'placeholder="Delete"';}else{echo 'value="'.$idArray[$index].'"';} ?> id="id" name="id">
-  <input type="submit" value="Delete" name="btnDelete">
+  <!--If coming with an id put the id and name into the text boxes
+      otherwise just give a placeholder value-->
+  <input type="text" <?php if($index == -1){ echo 'placeholder="Enter ID"';}else{echo 'value="'.$idArray[$index].'"';} ?> id="id" name="id">
+  <input type="text" <?php echo 'value="'.$name.'"'; ?> id="name" name="name">
+  <input type="submit" value="Search" name="btnSearch">
+  <!--Only display the delete button if there is something to delete-->
+  <?php if($index != -1){echo '<input type="submit" value="Delete" name="btnDelete">';} ?>
 </form>
   
 <?php
 
 
 
-//var for id here
+//Store the id of the item you want to interact with
 $varid=$_POST['id'];
- 
+
+ //Delete ID
  if (isset($_POST['btnDelete'])) {
    
-// create INSERT query
-$sql="DELETE FROM domain WHERE id='$varid'";
+    // create DELETE query
+    $sql="DELETE FROM domain WHERE id='$varid'";
 
-if ($conn->query($sql) === TRUE) {
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$sql="DELETE FROM products WHERE id='$varid'";
+    if ($conn->query($sql) === TRUE) {
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql="DELETE FROM products WHERE id='$varid'";
 
-if ($conn->query($sql) === TRUE) {
-  $message = "Record deleted successfully";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+    if ($conn->query($sql) === TRUE) {
+      $message = "Record deleted successfully";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
  }
 
+//Search for ID
+if (isset($_POST['btnSearch'])){
+  $idArray[0] = $varid;
+  $_SESSION["idArray"] = $idArray;
+  header("Location: Delete2.php?index=0");
+
+}
  
 mysqli_close($conn);
 ?>

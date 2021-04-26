@@ -114,7 +114,13 @@ $varDep=$_POST['department'];
 $varQty=$_POST['quantity'];
  
  if (isset($_POST['btnEdit'])) {
-   $sql = "UPDATE products SET iname='$varName', cost='$varCost', company='$varDis', department='$varDep', quantity='$varQty' WHERE id='$varId'";
+   $sql = "UPDATE products SET cost='$varCost', company='$varDis', department='$varDep', quantity='$varQty' WHERE id='$varId'";
+
+if ($conn->query($sql) === TRUE) {
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$sql = "UPDATE domain SET iname='$varName' WHERE id='$varId'";
 
 if ($conn->query($sql) === TRUE) {
   $message = "Record Edited successfully";
