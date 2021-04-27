@@ -109,24 +109,42 @@ if ($index != -1)
 <form method="post" action="">
 
   <label for="id">Id:</label><br>
-  <input type="text" id="id" name="id"<?php if($index != -1){echo 'value="'.$id.'"';} ?>><br>
+  <input type="text" id="id" name="id"
+  	<?php if($index != -1){echo 'value="'.$id.'"';} ?>>
+  <br>
 
   <label for="iname">Item Name:</label><br>
-	<input type="text" id="iname" name="iname" <?php if($index != -1){echo 'value="'.$iname.'"';} ?>><br>
+	<input type="text" id="iname" name="iname" 
+		<?php if($index != -1){echo 'value="'.$iname.'"';} 
+		 	  if ($index == -1) {echo 'disabled';}?>>
+	<br>
   
 	<label for="cost">Item Cost:</label><br>
-	<input type="text" id="cost" name="cost"<?php if($index != -1){echo 'value="'.$cost.'"';} ?>><br>
+	<input type="text" id="cost" name="cost"
+		<?php if($index != -1){echo 'value="'.$cost.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
   
 	<label for="company">Distributor:</label><br>
-	<input type="text" id="company" name="company"<?php if($index != -1){echo 'value="'.$company.'"';} ?>><br>
+	<input type="text" id="company" name="company"
+		<?php if($index != -1){echo 'value="'.$company.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
   
 	<label for="department">Department:</label><br>
-	<input type="text" id="department" name="department"<?php if($index != -1){echo 'value="'.$department.'"';} ?>><br>
+	<input type="text" id="department" name="department"
+		<?php if($index != -1){echo 'value="'.$department.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
   
 	<label for="quantity">Quantity:</label><br>
-	<input type="text" id="quantity" name="quantity"<?php if($index != -1){echo 'value="'.$quantity.'"';} ?>><br>
+	<input type="text" id="quantity" name="quantity"
+		<?php if($index != -1){echo 'value="'.$quantity.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
 	<input type="submit" value="Search" name="btnSearch">
-  <?php if ($index != -1){ echo '<input type="submit" value="Edit" name="btnEdit">';} ?>
+
+  	<?php if ($index != -1){ echo '<input type="submit" value="Edit" name="btnEdit">';} ?>
 <?php
 //var for id here
 $varId=$_POST['id'];
