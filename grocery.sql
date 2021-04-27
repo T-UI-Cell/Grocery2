@@ -13,6 +13,14 @@ CREATE TABLE products(
 	quantity INT
 );
 
+CREATE TABLE orders(
+  buyer VARCHAR(255),
+  vendor VARCHAR(255),
+  item VARCHAR(255),
+  quantity INT,
+  orderid INT(5) NOT NULL primary key auto_increment
+);
+
 -- insert commands
 INSERT INTO domain (iname) VALUES ('Hot Dogs');
 
