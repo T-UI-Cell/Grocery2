@@ -3,6 +3,14 @@ session_start();
 
 error_reporting (E_ALL ^ E_NOTICE);
 
+if (isset($_GET['index'])) {
+        $index = $_GET['index'];
+    }
+    else{
+      $index = -1;
+    }
+$idArray = $_SESSION["idArray"];
+
 // Create connection
 $conn = new mysqli('localhost','root','');
  
@@ -83,27 +91,42 @@ input.right{
   <a href="Delete2.php"><i class="fa fa-fw fa-envelope"></i>Delete</a>
 </div>
 <h2>Enter ID to Edit Item</h2>
+<?php
+if ($index != -1)
+{
+	$sql = "SELECT id, iname, cost, company, department, quantity FROM products natural join domain WHERE id = '".$idArray[$index]."'";
+    $res_data = mysqli_query($conn,$sql);
+    $row = mysqli_fetch_array($res_data);
+	$id = $row["id"];
+    $iname = $row["iname"];
+    $cost = $row["cost"];
+    $company = $row["company"];
+    $department = $row["department"];
+    $quantity = $row["quantity"];
+}
+?>
+
 <form method="post" action="">
 
   <label for="id">Id:</label><br>
-  <input type="text" id="id" name="id"><br>
+  <input type="text" id="id" name="id"<?php if($index != -1){echo 'value="'.$id.'"';} ?>><br>
 
   <label for="iname">Item Name:</label><br>
-	<input type="text" id="iname" name="iname"><br>
+	<input type="text" id="iname" name="iname" <?php if($index != -1){echo 'value="'.$iname.'"';} ?>><br>
   
 	<label for="cost">Item Cost:</label><br>
-	<input type="text" id="cost" name="cost"><br>
+	<input type="text" id="cost" name="cost"<?php if($index != -1){echo 'value="'.$cost.'"';} ?>><br>
   
 	<label for="company">Distributor:</label><br>
-	<input type="text" id="company" name="company"><br>
+	<input type="text" id="company" name="company"<?php if($index != -1){echo 'value="'.$company.'"';} ?>><br>
   
 	<label for="department">Department:</label><br>
-	<input type="text" id="department" name="department"><br>
+	<input type="text" id="department" name="department"<?php if($index != -1){echo 'value="'.$department.'"';} ?>><br>
   
 	<label for="quantity">Quantity:</label><br>
-	<input type="text" id="quantity" name="quantity"><br>
-  
-  <input type="submit" value="Edit" name="btnEdit">
+	<input type="text" id="quantity" name="quantity"<?php if($index != -1){echo 'value="'.$quantity.'"';} ?>><br>
+	<input type="submit" value="Search" name="btnSearch">
+  <?php if ($index != -1){ echo '<input type="submit" value="Edit" name="btnEdit">';} ?>
 <?php
 //var for id here
 $varId=$_POST['id'];
@@ -113,6 +136,13 @@ $varDis=$_POST['company'];
 $varDep=$_POST['department'];
 $varQty=$_POST['quantity'];
  
+if (isset($_POST['btnSearch'])) {
+
+  $idArray[0] = $varId;
+  $_SESSION["idArray"] = $idArray;
+  header("Location: Edit2.php?index=0");
+}
+
  if (isset($_POST['btnEdit'])) {
    $sql = "UPDATE products SET cost='$varCost', company='$varDis', department='$varDep', quantity='$varQty' WHERE id='$varId'";
 
