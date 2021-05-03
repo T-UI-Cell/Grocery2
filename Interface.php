@@ -1,7 +1,7 @@
 <html>
 <head>
 <style type="text/css">
-h2{
+h1{
 	text-align: center;
 }
 body{
@@ -21,13 +21,24 @@ input[type="submit"]{
 	display: block;
 }
 
+.navbar{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
 
-<h2>Inventory System</h2>
-
+<h1>Inventory System</h1>
+<div class="navbar">
+  <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
+  <a href="Edit.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
+  <a href="Delete.php"><i class="fa fa-fw fa-envelope"></i>Delete</a>
+  
+</div>
 <form action="Insert.php" method= "post"  >
+<center>
+<br>
 	<label for="iname">Item name:</label><br>
 	<input type="text" id="iname" name="iname" value=""><br>
 	<label for="cost">Cost:</label><br>
@@ -46,9 +57,7 @@ input[type="submit"]{
 	<label for="quantity">Quantity of Item:</label><br>
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
 	<input type="submit" value="Submit">
-  <button type="button" onclick="document.location='Items.php'">Items List</button>
-  <button type="button" onclick="document.location='Delete2.php'">Delete Items</button>
-  <button type="button" onclick="document.location='Edit2.php'">Edit Items</button>
+</center>
 	
 </body>
 </html>

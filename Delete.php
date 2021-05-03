@@ -30,10 +30,6 @@ mysqli_select_db($conn,"items_database");
 <html>
 <head>
     <title> Delete </title>
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <header>
 <style type="text/css">
@@ -46,6 +42,7 @@ h1{
 .navbar{
 	text-align: center;
 }
+
 body{
 	max-width: 550px;
 	background: #FAFAFA;
@@ -94,11 +91,11 @@ input.right{
 
 <h1>Delete Grocery Item</h1>
 <div class="navbar">
-  <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Home</a>
+  <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Insert</a>
   <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
-  <a href="Edit2.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
+  <a href="Edit.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
 </div>
-<h2>Enter ID to delete Item</h2>
+<h3>Enter ID to delete Item</h3>
 <?php
 
 //if coming from another page, get the name of the item you are looking to delete
@@ -149,7 +146,7 @@ $varid=$_POST['id'];
 if (isset($_POST['btnSearch'])){
   $idArray[0] = $varid;
   $_SESSION["idArray"] = $idArray;
-  header("Location: Delete2.php?index=0");
+  header("Location: Delete.php?index=0");
 
 }
  
