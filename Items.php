@@ -54,7 +54,7 @@ session_start();
     $index = 0;
     while($row = mysqli_fetch_array($res_data)){
         $idArray[$index] = $row["id"];
-       echo '<tr><th scope="row">'.$row["id"].'</th><td>'.$row["iname"].'</td><td>'.$row["cost"].'</td><td>'.$row["company"].'</td><td>'.$row["department"].'</td><td>'.$row["quantity"].'</td><td><a href = "Delete2.php?index='.$index.'">Delete</a></td></tr>';
+       echo '<tr><th scope="row">'.$row["id"].'</th><td>'.$row["iname"].'</td><td>'.$row["cost"].'</td><td>'.$row["company"].'</td><td>'.$row["department"].'</td><td>'.$row["quantity"].'</td><td><a href = "Edit2.php?index='.$index.'">Edit</a></td><td><a href = "Delete2.php?index='.$index.'">Delete</a></td></tr>';
         $index++;
   }
   echo "</tbody></table>";
