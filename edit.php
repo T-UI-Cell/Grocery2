@@ -1,63 +1,189 @@
+<?php 
+session_start();
+
+error_reporting (E_ALL ^ E_NOTICE);
+
+if (isset($_GET['index'])) {
+        $index = $_GET['index'];
+    }
+    else{
+      $index = -1;
+    }
+$idArray = $_SESSION["idArray"];
+
+// Create connection
+$conn = new mysqli('localhost','root','');
+ 
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+ 
+// this will select the Database 
+mysqli_select_db($conn,"items_database");
+
+?>
+
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="edit.css">
-</head>
+<title> Edit </title>
+<header>
+<style type="text/css">
+h3{
+	text-align: center;
+}
+h1{
+	text-align: center;
+}
+.navbar{
+	text-align: center;
+}
 
+body{
+	max-width: 550px;
+	background: #FAFAFA;
+	padding: 30px;
+	margin: 50px auto;
+	box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+	border-radius: 10px;
+	border: 6px solid #305A72;
+	text-align: center;
+}
+p{
+	text-align: center;
+}
+input {
+	margin-bottom: 10px;
+}
+input[type="delete"]{
+	margin: 0 auto;
+	display: block;
+	
+}
+input[type="text"]{
+	text-align: center;
+}
+#myFunction(){
+	margin: 0 auto;
+	display: block;
+}
+
+input.right{
+	float: right;
+	border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  border-color: black;
+  font-size: 16px;
+  margin: 0px 2px;
+  cursor: pointer;
+  background-color: red;
+}
+</style>
+</header>
 <body>
-	<h2>Edit product</h2>
-	
-	<section>
-		<ul>
-			<li><a href="Interface.php">Home</a></li>
-			<li><a href="Delete.php">Delete</a></li>
-			<li><a href="Items.php">Item list</a></li>
-		</ul>
-	</section>
-	
 
-<form method="post" action="edit.php">
-	<h3>Search for a product to edit:</h2>
-	<input type="text" id="itemname" name="itemname"><br>
-	<label for="itemcost">Item Cost:</label><br>
-	<input type="text" id="itemcost" name="costinput" value="" readonly=""><br>
-	<label for="distributor">Distributor:</label><br>
-	<input type="text" id="distributor" name="dinput" value="" readonly=""><br>
+<h1>Edit Grocery Item</h1>
+<div class="navbar">
+  <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Insert</a>
+  <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
+  <a href="Delete.php"><i class="fa fa-fw fa-envelope"></i>Delete</a>
+</div>
+<h3>Enter ID to Edit Item</h3>
+<?php
+if ($index != -1)
+{
+	$sql = "SELECT id, iname, cost, company, department, quantity FROM products natural join domain WHERE id = '".$idArray[$index]."'";
+    $res_data = mysqli_query($conn,$sql);
+    $row = mysqli_fetch_array($res_data);
+	$id = $row["id"];
+    $iname = $row["iname"];
+    $cost = $row["cost"];
+    $company = $row["company"];
+    $department = $row["department"];
+    $quantity = $row["quantity"];
+}
+?>
+
+<form method="post" action="">
+
+  <label for="id">Id:</label><br>
+  <input type="text" id="id" name="id"
+  	<?php if($index != -1){echo 'value="'.$id.'"';} ?>>
+  <br>
+
+  <label for="iname">Item Name:</label><br>
+	<input type="text" id="iname" name="iname" 
+		<?php if($index != -1){echo 'value="'.$iname.'"';} 
+		 	  if ($index == -1) {echo 'disabled';}?>>
+	<br>
+  
+	<label for="cost">Item Cost:</label><br>
+	<input type="text" id="cost" name="cost"
+		<?php if($index != -1){echo 'value="'.$cost.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
+  
+	<label for="company">Distributor:</label><br>
+	<input type="text" id="company" name="company"
+		<?php if($index != -1){echo 'value="'.$company.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
+  
 	<label for="department">Department:</label><br>
-	<input type="text" id="department" name="depinput" value="" readonly=""><br>
+	<input type="text" id="department" name="department"
+		<?php if($index != -1){echo 'value="'.$department.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
+  
 	<label for="quantity">Quantity:</label><br>
-	<input type="text" id="quantity" name="qty" value="" readonly=""><br>
-	
-	<input type="submit" value="Submit">
-		
-	<?php
+	<input type="text" id="quantity" name="quantity"
+		<?php if($index != -1){echo 'value="'.$quantity.'"';} 
+		 	  if ($index == -1) {echo 'disabled';} ?>>
+	<br>
+	<input type="submit" value="Search" name="btnSearch">
 
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "items_database";
+  	<?php if ($index != -1){ echo '<input type="submit" value="Edit" name="btnEdit">';} ?>
+<?php
+//var for id here
+$varId=$_POST['id'];
+$varName=$_POST['iname'];
+$varCost=$_POST['cost'];
+$varDis=$_POST['company'];
+$varDep=$_POST['department'];
+$varQty=$_POST['quantity'];
+ 
+if (isset($_POST['btnSearch'])) {
+
+  $idArray[0] = $varId;
+  $_SESSION["idArray"] = $idArray;
+  header("Location: Edit2.php?index=0");
+}
+
+ if (isset($_POST['btnEdit'])) {
+   $sql = "UPDATE products SET cost='$varCost', company='$varDis', department='$varDep', quantity='$varQty' WHERE id='$varId'";
+
+if ($conn->query($sql) === TRUE) {
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$sql = "UPDATE domain SET iname='$varName' WHERE id='$varId'";
+
+if ($conn->query($sql) === TRUE) {
+  $message = "Record Edited successfully";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+ }
+
+ 
+mysqli_close($conn);
+?>
+ 
 
 
-
-		$conn = new mysqli('localhost','root','');
-		mysqli_select_db($conn,"items_database");
-
-		if (isset($_POST['itemname'])) {
-			try {
-    			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    			$stmt = $conn->prepare("SELECT * FROM `products` WHERE `iname` LIKE 'itemname'");
-    			$stmt->execute();
-    			$results = $stmt->fetchAll();
-    		}
-    		catch(PDOException $e) {
-    		echo "Error: " . $e->getMessage();
-			}
-
-    	}
-
-
-	 ?>
-	
 </body>
 </html>
