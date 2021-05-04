@@ -3,12 +3,16 @@ session_start();
 
 error_reporting (E_ALL ^ E_NOTICE);
 
+//If coming from another page, get the id that was sent.
+//otherwise set set index to -1
 if (isset($_GET['index'])) {
         $index = $_GET['index'];
     }
     else{
       $index = -1;
     }
+
+//retrieve the array of ids from the session
 $idArray = $_SESSION["idArray"];
 
 // Create connection
@@ -93,6 +97,7 @@ input.right{
 </div>
 <h3>Enter ID to Edit Item</h3>
 <?php
+//If you came from another page, get the info associated with the id you came with
 if ($index != -1)
 {
 	$sql = "SELECT id, iname, cost, company, department, quantity FROM products natural join domain WHERE id = '".$idArray[$index]."'";
@@ -109,6 +114,9 @@ if ($index != -1)
 
 <form method="post" action="">
 
+
+<!-- If you came with an id, plug the info associated with it into the boxes.
+     Otherwise, the boxes remain disabled-->
   <label for="id">Id:</label><br>
   <input type="text" id="id" name="id"
   	<?php if($index != -1){echo 'value="'.$id.'"';} ?>>
@@ -145,9 +153,12 @@ if ($index != -1)
 	<br>
 	<input type="submit" value="Search" name="btnSearch">
 
+	<!-- Only display the edit button if there is an item to edit -->
   	<?php if ($index != -1){ echo '<input type="submit" value="Edit" name="btnEdit">';} ?>
 <?php
-//var for id here
+
+
+//retrieve the info posted by the Edit button
 $varId=$_POST['id'];
 $varName=$_POST['iname'];
 $varCost=$_POST['cost'];
@@ -155,6 +166,8 @@ $varDis=$_POST['company'];
 $varDep=$_POST['department'];
 $varQty=$_POST['quantity'];
  
+
+//When the search button is clicked, reload the page (sending the id entered)
 if (isset($_POST['btnSearch'])) {
 
   $idArray[0] = $varId;
@@ -162,6 +175,7 @@ if (isset($_POST['btnSearch'])) {
   header("Location: Edit2.php?index=0");
 }
 
+//When the edit button is clicked, get the posted info and update the databases.
  if (isset($_POST['btnEdit'])) {
    $sql = "UPDATE products SET cost='$varCost', company='$varDis', department='$varDep', quantity='$varQty' WHERE id='$varId'";
 
