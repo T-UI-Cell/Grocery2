@@ -142,7 +142,7 @@ $varid=$_POST['id'];
     }
  }
 
-//Search for ID
+//Reload page with the info for the Id entered
 if (isset($_POST['btnSearch'])){
   $idArray[0] = $varid;
   $_SESSION["idArray"] = $idArray;

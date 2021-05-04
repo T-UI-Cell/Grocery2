@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 // this will select the Database sample_db
 mysqli_select_db($conn,"items_database");
  
-// create INSERT query
+// Check if an item with the same name is already in the database
  $result = $conn->query("SELECT iname FROM domain");
  $found = 0;
  while ($row = mysqli_fetch_array($result)){
@@ -23,12 +23,15 @@ mysqli_select_db($conn,"items_database");
  		$found = 1;
  	}
  }
+ //if not, insert the new item into both the domain and product table
  if ($found == 0){
 	$insertsql = "INSERT INTO domain (iname) VALUES ('$_POST[iname]')";
 	if ($conn->query($insertsql) === TRUE) {
 	} else {
     	echo "Error: " . $insertsql . "<br>" . $conn->error;
 	}
+	//since the id is autoincremented, we have to query the domain table to find out what
+	//id it gave to the new item in order to insert it into the product table
  	$idresult = $conn->query("SELECT id FROM domain WHERE iname = '$_POST[iname]'");
  	$idnum = mysqli_fetch_array($idresult);
  
@@ -45,7 +48,7 @@ mysqli_select_db($conn,"items_database");
  	$message = "An item with this name already exists in the database";
         echo "<script type='text/javascript'>alert('$message');</script>";
  }
- //echo '<br><br><a href="Interface.php" class="btn btn-light">Home</a>';
+ echo '<br><br><a href="Interface.php" class="btn btn-light">Home</a>';
  
 mysqli_close($conn);
 ?>
