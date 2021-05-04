@@ -93,7 +93,7 @@ input.right{
 <div class="navbar">
   <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Insert</a>
   <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
-  <a href="Delete.php"><i class="fa fa-fw fa-envelope"></i>Delete</a>
+  <?php echo '<a href="Delete.php?index='.$index.'"><i class="fa fa-fw fa-envelope"></i>Delete</a>';?>
 </div>
 <h3>Enter ID to Edit Item</h3>
 <?php

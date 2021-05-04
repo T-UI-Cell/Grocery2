@@ -71,7 +71,7 @@ session_start();
         //add the Item id to the array
         array_push($idArray,$row["id"]);
         //write the row
-        echo '<tr><th scope="row">'.$row["id"].'</th><td>'.$row["iname"].'</td><td>'.$row["cost"].'</td><td>'.$row["company"].'</td><td>'.$row["department"].'</td><td>'.$row["quantity"].'</td><td><a href = "Edit2.php?index='.$index.'">Edit</a></td><td><a href = "Delete.php?index='.$index.'">Delete</a></td></tr>';
+        echo '<tr><th scope="row">'.$row["id"].'</th><td>'.$row["iname"].'</td><td>'.$row["cost"].'</td><td>'.$row["company"].'</td><td>'.$row["department"].'</td><td>'.$row["quantity"].'</td><td><a href = "Edit.php?index='.$index.'">Edit</a></td><td><a href = "Delete.php?index='.$index.'">Delete</a></td></tr>';
         //increment the index to keep track of what Item is attached to each link
         $index++;
   }
