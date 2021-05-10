@@ -28,10 +28,19 @@ session_start();
         $pageno = 1;
     }
 
+
+    if (isset($_POST['perpage'])) {
+        $no_of_records_per_page = $_POST['perpage'];
+    }
+    else {
+      $no_of_records_per_page = 10;
+    }
+    $_SESSION['num_per_page'] = $no_of_records_per_page;
+
     //Set the number of records displayed and set up the offset to pull the correct number of things from the database
     //     TO FIX
     //     we want to be able to change how many records per page on the fly
-    $no_of_records_per_page = 10;
+    //$no_of_records_per_page = 10;
     $offset = ($pageno-1) * $no_of_records_per_page;
 
     //open the connection to the database
@@ -81,7 +90,17 @@ session_start();
   $_SESSION["idArray"] = $idArray;
     mysqli_close($conn);
 ?>
-
+<br />
+<form method = "post">
+  <label for="perpage">Number of rows per page:</label><br>
+    <select name="perpage" id="perpage" onchange="this.form.submit();">
+      <option value="">Choose</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+</form><br>
 <!--I got this pagination code online-->
     <ul class="pagination">
         <li><a href="?pageno=1">First</a></li>
@@ -94,6 +113,7 @@ session_start();
         <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     </ul>
   </br>
-    <a href="Interface.php" class="btn btn-light">Home</a>
+    <a href="Home.html" class="btn btn-light">Home</a>
+    <a href="Interface.php" class="btn btn-light">Insert</a>
 </body>
 </html>
