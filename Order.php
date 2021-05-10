@@ -23,13 +23,19 @@ input[type="submit"]{
 #quantity{
 	width: 50px;
 }
+.navbar{
+	text-align: center;
+}
 
 
 </style>
 </head>
 <body>
 
-<h2>Vendor Order</h2>
+<h1>Vendor Order</h1>
+<div class="navbar">
+  <a class="active" href="Home.html"><i class="fa fa-fw fa-home"></i>Home</a>
+</div>
 
 <form action="Orders.php" method= "post"  >
 	<label for="buyer">Ordered By:</label><br>
@@ -40,9 +46,7 @@ input[type="submit"]{
 	<input type="text" id="item" name="item" value=""><br>
 	<label for="quantity">Quantity of Item:</label><br>
 	<input type="text" id="quantity" name="quantity" value=""><br><br>
-	<input type="submit" value="Submit">
-  <button type="button" onclick="document.location='Interface.php'">Home</button>
-	
+	<input type="submit" value="Submit">	
 </body>
 </html>
 	

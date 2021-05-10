@@ -31,6 +31,7 @@ input[type="submit"]{
 
 <h1>Inventory System</h1>
 <div class="navbar">
+  <a href="Home.html"><i class="fa fa-fw fa-search"></i>Home</a>
   <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
   <a href="Edit.php"><i class="fa fa-fw fa-envelope"></i> Edit</a>
   <a href="Delete.php"><i class="fa fa-fw fa-envelope"></i>Delete</a>

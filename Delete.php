@@ -91,6 +91,7 @@ input.right{
 
 <h1>Delete Grocery Item</h1>
 <div class="navbar">
+  <a href="Home.html"><i class="fa fa-fw fa-search"></i>Home</a>
   <a class="active" href="Interface.php"><i class="fa fa-fw fa-home"></i> Insert</a>
   <a href="Items.php"><i class="fa fa-fw fa-search"></i>Items</a>
   <?php echo '<a href="Edit.php?index='.$index.'"><i class="fa fa-fw fa-envelope"></i> Edit</a>';?>
